@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<p> </p>
+<button id = "Button1">Increase left</button>
+<button id = "Button2">Decrease left</button>
+<button id = "Button3">Increase right</button>
+<button id = "Button4">Decrease right</button>
+
+<p> </p>
+<button id = "Button5">Increase bottom</button>
+<button id = "Button6">Decrease bottom</button>
+<button id = "Button7">Increase top</button>
+<button id = "Button8">Decrease top</button>
+<p> </p>
+
+<p> </p>
+<button id = "Button9">Increase near</button>
+<button id = "Button10">Decrease near</button>
+<button id = "Button11">Increase far</button>
+<button id = "Button12">Decrease far</button>
+<p> </p>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+attribute  vec4 vColor;
+varying vec4 fColor;
+
+uniform mat4 modelView;
+uniform mat4 projection;
+
+void main() 
+{
+    gl_Position = projection*modelView*vPosition;
+
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="cube_projection.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="512"" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<br/>
+
+</body>
+</html>

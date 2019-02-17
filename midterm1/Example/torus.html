@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+<p> </p>
+<button id = "Button1">Increase Z</button>
+<button id = "Button2">Decrease Z</button>
+<button id = "Button3">Increase R</button>
+<button id = "Button4">Decrease R</button>
+
+<p> </p>
+<button id = "Button5">Increase theta</button>
+<button id = "Button6">Decrease theta</button>
+<button id = "Button7">Increase phi</button>
+<button id = "Button8">Decrease phi</button>
+
+<p> </p>
+<button id = "Button9">Wider</button>
+<button id = "Button10">Narrower</button>
+<button id = "Button11">Higher</button>
+<button id = "Button12">Shorter</button>
+<p></p>
+<input id= "input1" /><button id="row">Number of Rows</button>
+<input id= "input2" /><button id="column">Number of Columns</button>
+<select id = "menu1">
+    <option value="0">Surface</option>
+    <option value="1">Mesh</option>
+</select>
+<select id = "menu2">
+        <option value="0">Spring</option>
+        <option value="0">Summer</option>
+        <option value="0">Autumn</option>
+        <option value="0">Winter</option>
+
+    </select>
+
+<p> </p>
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+attribute  vec4 vColor;
+varying vec4 fColor;
+
+void main()
+{
+    gl_Position = projectionMatrix*modelViewMatrix*vPosition;
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+varying vec4 fColor;
+// add "uniform int colorFlag;" here.
+
+void
+main()
+{
+    // use if-else on the condition of colorFlag to switch colors.
+    gl_FragColor = fColor;
+    //gl_FragColor = vec4(0.0, 00, 0.0, 1.0); // black color for the gird over surface.
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="torus.js"></script>
+
+<body>
+
+
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+
+
+</body>
+</html>

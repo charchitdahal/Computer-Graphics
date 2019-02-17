@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<div>
+ <button id = "button">Start/Stop Animation</button>
+ <p></p>
+ <input id= "max"/><button id="button1">Max Iteration</button>
+ <p></p>
+ <input id= "cx"/><button id="buttoncx">Initial X</button>
+ <input id= "cy"/><button id="buttoncy">Initial Y</button>
+ <p></p>
+</div>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+
+
+void main()
+{
+    gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+uniform int max_iteration;
+uniform float cx;
+uniform float cy;
+
+float height;
+float width;
+
+void main()
+{
+   const float PI = 3.14159;
+
+   float n = 500.0;
+   float m = 500.0;
+   float v;
+   const int max = 100; 
+   float x = 4.0*gl_FragCoord.x/n - 2.0;
+   float y = 4.0*gl_FragCoord.y/m - 2.0;
+
+   float bx, by;
+
+   for ( int k = 0; k < max; k++ ) {
+       if (k <= max_iteration){
+            // compute c = c^2 + p
+
+            // Your code goes here:
+            bx  = x*x-y*y;
+            by = 2.0*x*y;
+            x = bx+cx;
+            y = by+cy;
+            v = x*x+y*y;
+            
+
+
+
+
+
+            
+
+            if (v>4.0){
+                v = float(k)/float(max_iteration);
+                gl_FragColor.r = 1.0;
+                gl_FragColor.g = v;
+                gl_FragColor.b = .0;
+                gl_FragColor.a = 1.0;
+                break;
+            }
+            else if(k==max_iteration){
+                gl_FragColor = vec4(0.0,0.0,1.0,1.0); 
+            }
+        }
+    }
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="julia.js"></script>
+
+<body>
+<canvas id="gl-canvas" width="500" height="500">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
